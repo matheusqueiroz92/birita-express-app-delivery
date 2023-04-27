@@ -1,0 +1,175 @@
+.tableCheckout {
+  width: 80%;
+}
+
+.tableCheckout thead {
+  background-color: rgb(236, 236, 236);
+}
+
+.containerGeral {
+  margin-left: 80px;
+  margin-top: 50px;
+}
+
+.containerTable {
+  margin-top: 20px;
+}
+
+.theadTable {
+  height: 50px;
+  font-size: 15px;
+  color: rgb(58, 58, 58);
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+tbody {
+  height: 50px;
+  text-align: center;
+  background-color: #dffff8;
+}
+
+.columnOne {
+  background-color: #49b199;
+  color: black;
+  font-size: 20px;
+  width: 5%;
+}
+
+.columnTwo {
+  width: 48%;
+  font-weight: 700;
+  font-size: 18px;
+  background-color: rgb(250, 250, 250);
+}
+
+.columnThree {
+  background-color: #036b52;
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  width: 10%;
+}
+
+.columnFour {
+  background-color: #1962ff;
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  width: 10%;
+}
+
+.columnFive {
+  background-color: #002f96;
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  width: 10%;
+}
+
+.columnSix {
+  background-color: #49b199;
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  width: 20%;
+}
+
+.removeColumn {
+  width: 0%;
+}
+
+.buttonRemove {
+  background: #49b199;
+  border: 0;
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+}
+
+.totalCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #036b52;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  padding: 15px;
+  margin-top: 30px;
+  margin-left: 1200px;
+  width: 21.5%;
+  height: 60px;
+}
+
+.buttonRemove:hover {
+  background-color: #77ddc5;
+}
+
+.buttonTotal:hover {
+  background-color: #3861bb;
+}
+
+.titleAddressDetails {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
+.containerSelect {
+  display: flex;
+}
+
+.selectSeller {
+  background-color: #e4edff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  outline: 0;
+  padding: 15px;
+  width: 10%;
+}
+
+.inputAddress {
+  background-color: #e4edff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  outline: 0;
+  padding: 15px;
+  width: 30%;
+}
+
+.inputNumberAddress {
+  background-color: #e4edff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  outline: 0;
+  padding: 15px;
+  width: 5%;
+}
+
+.buttonFinishOrder {
+  background: #002f96;
+  border: 0;
+  font-weight: 700;
+  font-size: 17px;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  height: 50px;
+  border-radius: 5px ;
+}
+
+.buttonFinishOrder:hover {
+  background-color: #3861bb;
+}
