@@ -1,7 +1,8 @@
-# birita-express-app-delivery
-Aplicação de delivery de bebidas
+# Birita Express App Delivery
 
-# Boas vindas ao repositório do projeto Birita Express App de Delivery
+Este é um projeto de uma aplicação de delivery de bebidas escrito em JavaScript utilizando NodeJS. Esta aplicação dispõe de uma estrutura completa de back-end utilizando MySQL e Sequelize, e front-end utilizando React.
+
+## Boas vindas ao repositório do projeto <b><i>Birita Express App de Delivery</i></b>
 
 Colaboradores para desenvolvimento deste projeto: 
 - Matheus Queiroz
@@ -11,13 +12,257 @@ Colaboradores para desenvolvimento deste projeto:
 - Guilherme Pavinato
 - Israel Pereira
 
-Aqui você vai encontrar os detalhes de como o projeto foi estruturado e desenvolvido a partir deste repositório.
+A partir deste repositório você vai encontrar os detalhes do desenvolvimento e estruturação deste projeto.
 
-Nessa aplicação foi desenvolvido o back-end e o front-end, sendo feito a integração entre ambos, criando assim uma plataforma de delivery de bebidas.
+Nessa aplicação foram desenvolvidos o back-end e o front-end, sendo feito a integração entre ambos, criando assim uma plataforma de delivery de bebidas.
 
-O projeto foi feito em equipe sendo divido em requisitos apresentados a seguir:
+---
 
-### `01login.test`
+## Pré-requisitos
+
+Antes de começar a utilizar este projeto, certifique-se de que você tenha instalado em sua máquina:
+
+- Node.js (versão 16 ou superior);
+- NPM (gerenciador de pacotes do Node.js)
+
+## Como utilizar
+1. Faça um clone desse repositório
+  - Use o comando: `git clone git@github.com:matheusqueiroz/birita-express-app-delivery`.
+
+2. Entre na pasta do repositório que você acabou de clonar
+  - Use o comando: `cd birita-express-delivery`.
+
+3. Instale as depedências do projeto
+  - Use o comando: `npm install`.
+
+<details>
+  <summary>
+    <strong>🪛 Scripts relevantes do <code>package.json</code> principal</strong>
+  </summary><br>
+
+  **Observação:** nesse projeto, foi utilizado o gerenciador de processos `pm2`.
+
+  **São os scripts da raiz do projeto (`./package.json`) e não das aplicações individuais `./front-end/package.json` e `./back-end/package.json`**:
+
+- `start`: Limpa as portas `3000` e `3001` e simula a inicialização no avaliador. Também prepara o campo rodando o `Sequelize` para restaurar o **banco de dados de testes** (final `-test`) e sobe a aplicação com `pm2` em modo `fork` (uma instância para cada aplicação). Nesse modo, as alterações não são assistidas;
+  - *uso (na raiz do projeto): `npm start`*
+
+- `stop`: Para e deleta as aplicações rodando no `pm2`;
+  - *uso (na raiz do projeto): `npm stop`*
+
+- `dev`: Limpa as portas `3000` e `3001` e sobe a aplicação com `pm2` em modo `fork` (uma instância pra cada aplicação). Nesse modo, as atualizações são assistidas (modo `watch`);
+  - *uso (na raiz do projeto): `npm run dev`*
+
+- `dev:prestart`: A partir da raiz, esse comando faz o processo de instalação de dependências (`npm i`) nos dois projetos (`./front-end` e `./back-end`) e roda o `Sequelize` no `./back-end` (lembrar de configurar o `.env` no mesmo);
+  - *uso (na raiz do projeto): `npm run dev:prestart`*
+
+- `db:reset`: Roda os scripts do `Sequelize` restaurando o **banco de dados de desenvolvimento** (final `-dev`). Utilize esse script caso ocorra algum problema no seu banco local;
+  - *uso (na raiz do projeto): `npm run db:reset`*
+
+- `db:reset:debug`: Roda os scripts do `Sequelize` restaurando o **banco de dados de desenvolvimento** (final `-dev`). Utilize esse script caso ocorra algum problema no seu banco local. Esse comando também é capaz de retornar informações detalhadas de erros (quando ocorrerem no processo);
+  - *uso (na raiz do projeto): `npm run db:reset:debug`*
+
+- `test <nomes-dos-arquivos>`: Roda todos os testes (ou uma parte deles caso `<nomes-dos-arquivos>` seja definido) utilizando o **banco de dados de testes** (final `-test`);
+  - *uso (na raiz do projeto): `npm test`, `npm test 01login 02register` ou ainda `npm run test 01 02`*
+
+- `test:dev <nomes-dos-arquivos>`: Roda todos os testes (ou uma parte deles caso `<nomes-dos-arquivos>` seja definido) utilizando o **banco de dados de desenvolvimento** (final `-dev`);
+  - *uso (na raiz do projeto): `npm run test:dev`, `npm run test:dev 01login 02register` ou ainda `npm test:dev 01 02`*;
+
+- `test:dev:open <nomes-dos-arquivos>`: Roda todos os testes (ou uma parte deles caso `<nomes-dos-arquivos>` seja definido) utilizando o **banco de dados de desenvolvimento** (final `-dev`), exemplo `npm test:dev:open 01login 02register` ou ainda `npm test:dev:open 01 02`. Esse teste deve abrir uma janela mostrando o comportamento das páginas;
+  - *uso (na raiz do projeto): `npm run test:dev:open`, `npm run test:dev:open 01login 02register` ou ainda `npm test:dev:open 01 02`*;
+
+- `test:dev:report "<nomes-dos-arquivos>"`: Roda todos os testes (ou uma parte deles caso `"<nomes-dos-arquivos>"` seja definido) utilizando o **banco de dados de desenvolvimento** (final `-dev`). Esse teste devolve um output em texto com o resultado de todos os testes. Os `logs` são gerados em `./__tests__/reports`.
+  - *uso (na raiz do projeto): `npm run test:dev:report`, `npm run test:dev:report "01login 02register"` ou ainda `npm run test:dev:report "01 02"`*;
+
+</details>
+
+
+<details>
+  <summary>
+    <strong>🎛 Linter</strong>
+  </summary><br>
+
+## ESLint
+
+  Para fazer a análise estática do código neste projeto, vamos utilizar o linter [ESLint](https://eslint.org/). Assim o código estará alinhado com as boas práticas de desenvolvimento, sendo mais legível e de fácil manutenção!
+
+  ➡️ Este projeto já vem com as dependências relacionadas ao _linter_ configuradas nos arquivos `package.json` nos seguintes caminhos:
+    - `birita-express-app-delivery/back-end/package.json`
+    - `birita-express-app-delivery/front-end/package.json`
+
+  ➡️ Para poder rodar o `ESLint` basta:
+
+- Executar o comando `npm install` dentro do projeto, de forma individual, ou seja, execute esse comando dentro da pasta `back-end` e também na pasta `front-end`;
+
+- Depois execute o comando `npm run lint` dentro de cada uma dessas pastas, assim você verifica as particularidades individualmente;
+
+- Se a análise do `ESLint` encontrar problemas no seu código, eles serão mostrados no seu terminal.
+- Se não houver problema no seu código, nada será impresso no seu terminal.
+
+- Você pode também instalar o plugin do `ESLint` no `VSCode`. Para isso, bastar ir em extensions e baixar o [plugin `ESLint`](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+  
+  👀 **De olho na dica**: abra separadamente cada pasta do projeto (`back-end` e `front-end` em VSCodes separados, para tirar proveito do `ESLint` individual de cada projeto).
+
+  ⚠️ **Importante**: Devido ao fato de as configurações das regras do `ESLint` dos projetos de front e back serem diferentes, é preciso executar o `ESLint` em cada projeto.
+
+## StyleLint
+
+  ➡️ Usaremos também o [StyleLint](https://stylelint.io/) para fazer a análise estática do seu código, especialmente em Front-end.
+
+  ➡️ Para poder rodar o `StyleLint` em um projeto basta:
+
+- Executar o comando `npm install` dentro do projeto de front-end;
+
+- Depois execute o comando `npm run lint:styles`;
+
+- Se a análise do `StyleLint` encontrar problemas no seu código, tais problemas serão mostrados no seu terminal;
+- Se não houver problema no seu código, nada será impresso no seu terminal.
+
+  ➡️ Caso ainda fique alguma dúvida, você pode consultar nosso conteúdo sobre [`ESLint`](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/f04cdb21-382e-4588-8950-3b1a29afd2dd/section/3b1546b5-f7bc-40f7-a674-77b16c408756/lesson/0c9e8c0e-24c3-4526-ba6b-60d95913e022)
+
+  ⚠️ **Importante**: o Stylelint é aplicável apenas no front-end.
+
+  > ⚠️ **Importante**: Pull Requests com issues de Linter não serão avaliadas. Atente-se para resolvê-las antes de finalizar o desenvolvimento.
+
+</details>
+
+
+<details>
+  <summary>
+    <strong>🏦 Banco de dados e Sequelize</strong>
+  </summary><br>
+
+## Banco de dados
+
+  Para o banco de dados, foi utilizado o ORM `Sequelize`, que fará interface com o `MySQL`. Para isso, atente-se às seguintes orientações:
+
+- Utilize para referência de criação de `migrations` e `seeders` o arquivo `./db.example.sql`;
+- O [Diagrama de ER](./assets/readme/erdr.png) também pode ajudar a "visualizar" o banco de dados;
+- A estrutura do banco de dados deve ser respeitada.
+
+## Sequelize
+
+  ⚠️ **A configuração do sequelize pode ser considerado o requisito zero do projeto**, dado que a maior parte dos testes dependem da estrutura de alguma tabela para realização de testes, **portanto, deve ser feita primeiro**.
+
+  ⚠️ Antes de iniciar a aplicação, garanta que o Sequelize rode corretamente no `./back-end` (pela raiz do projeto, o comando `npm run db:reset` será de grande ajuda, pois serve para restaurar o banco de dados `-dev`). O avaliador vai executar funções do sequelize para garantir a estrutura do banco de dados.
+
+  O projeto provê uma estrutura inicializada do ORM (em `./back-end/src/database`). 
+  
+  Foram desenvolvidas as **migrations** e **seeders** corretamente, seguindo o modelo em `./db.example.sql`.
+
+- Esse projeto fornece por padrão o arquivo `.sequelizerc` em `.back-end` para configurações do padrão de pastas no Sequelize.
+
+- **Opcionalmente no desenvolvimento local, você pode alterar o valor `EVAL_ALWAYS_RESTORE_DEV_DB` do arquivo `.env` em `./back-end` para `false`**, o que persistirá os dados dos testes locais durante os mesmos. Essa opção pode gerar implicações para a performance e confiabilidade do teste local, já que o avaliador pode se comportar mal caso haja uma quantidade grande de registros para avaliar. Caso ocorra algum problema, utilize o comando `npm run db:reset` ou `npm run db:reset:debug` (para encontrar erros) pela raiz do projeto para restaurar o banco, ou altere de volta a opção `EVAL_ALWAYS_RESTORE_DEV_DB` para `true`.
+
+</details>
+
+<details>
+  <summary>
+    <strong>🏗️ Preparando o campo e iniciando o projeto</strong>
+  </summary><br>
+
+- ⚠️ O projeto só instala as dependências com a versão 16 do `node` para evitar conflitos de versão, caso não tenha essa versão instalada você pode usar o [`nvm`](https://github.com/nvm-sh/nvm#installing-and-updating) para fazer o gerenciamento de versões.
+
+
+- ⚠️ **Para testes locais, é fundamental configurar o arquivo de variáveis de ambiente `.env` (de `environment`) dentro da pasta `./back-end`** (ele é o único `.env` no projeto), conforme exemplo em `.env.example`, na mesma pasta. Esse arquivo servirá de referência para o avaliador e caso não exista, o avaliador vai utilizar valores `default` para o processo (O que pode estourar erro no teste local, caso suas configurações não sejam as mesmas).
+
+- ⚠️ **Nesse projeto, existe a necessidade de manter e subir para o repositório o arquivo `jwt.evaluation.key`, que também deve estar em `./back-end`**. Esse arquivo deve conter única e exclusivamente a chave utilizada para criptografia com JWT, que também vai ser testado pelo avaliador. Nesse sentido, esse arquivo pode ser lido por sua aplicação na hora de trabalhar com `tokens`.
+
+- ⚠️ **Inicie o projeto pela raiz, utilizando o comando `npm i`**. Após isso, é possível fazer a instalação de ambos os aplicativos (back e front) através da raiz do projeto, utilizando o comando `npm run dev:prestart` (esse comando também restaurará o banco de dados, caso o `.env` esteja configurado corretamente).
+
+</details>
+
+<details>
+  <summary>
+    <strong>👷 Estruturação do projeto</strong>
+  </summary><br>
+
+  Para facilitar o entendimento, podemos dividir a aplicação em **4 fluxos principais**, **uma validação de status entre cliente e pessoa vendedora** e **cobertura de testes (`front-end` e `back-end`)**:
+
+- **Fluxo Comum** que compreende:
+  - (1) Tela de Login (`01login.test`);
+  - (2) Tela de Registro (`02register.test`).
+
+- **Fluxo do Cliente** que compreende: :
+  - (3) Tela de Produtos (`03customer_products.test`);
+  - (4) Tela de Checkout (`04customer_checkout.test`);
+  - (5) Tela de Pedidos (`05customer_orders.test`);
+  - (6) Tela de Detalhes do Pedido (`06customer_order_details.test`).
+
+- **Fluxo da Pessoa Vendedora** que compreende:
+  - (7) Tela de Pedidos (`07seller_orders.test`);
+  - (8) Tela de Detalhes/Controle do Pedido (`08seller_order_details.test`).
+
+- **Validação do Status do Pedido** que compreende:
+  - (9) Teste de status (`09customer_seller_status_sync.test`);
+
+- **Fluxo da Pessoa Administradora** que compreende:
+  - (10) Tela de gerenciamento de usuários (`11admin_manage_users.test`).
+
+- **Testes da aplicação** que compreende:
+  - (11) Testes de cobertura (`12coverage_tests.test`).
+
+- ⚠️ **Importante** ⚠️: a tela de login deve ser capaz de direcionar para a tela principal de cada pessoa usuária, sendo as páginas:
+  - Do cliente: `/customer/products`,
+  - Da pessoa vendedora:  `/seller/orders`,
+  - Da pessoa administradora: `/admin/manage`
+
+</details>
+
+<details>
+  <summary>
+    <strong>🎨 Construção do Front-end e Componentização</strong>
+  </summary><br>
+
+## Construção do Front-end
+
+- Para servir arquivos estáticos como imagens no back-end, foi utilizado o seguinte path:`./back-end/public`;
+- ⚠️**Importante**: o banco de imagens pode ser [baixado aqui](./assets/images.zip);
+
+## Componentização
+
+  O **protótipo** possui um conjunto de **componentes** React para que seja possível fazer o maior reaproveitamento possível de cada estrutura.
+
+</details>
+
+<details>
+  <summary>
+    <strong>🤲 Escrevendo seus testes</strong>
+  </summary>
+  
+- ⚠️ O projeto avaliará separadamente a cobertura de testes da aplicação _front-end_ e da aplicação _back-end_, ou seja, é necessário implementar os arquivos de testes de cada parte da aplicação, tanto _front-end_ quanto _back-end_.
+- Esse projeto não avalia o tipo de teste implementado, ou seja, se é _teste unitário_ ou _teste de integração_. Ambos se aplicam ao projeto, e fica a critério de cada grupo ou indivíduo decidir qual tipo de teste aplicar, inclusive podendo usar os dois complementarmente. Portanto os testes avaliativos apenas medirão a cobertura (_coverage_) por quantidade de linhas e porcentagem.
+  
+</details>
+  
+<details>
+  <summary>
+    <strong>⚠️ Upload de arquivos</strong>
+  </summary>
+
+- Caso necessite realizar upload de algum arquivo/imagem, pode utilizar a ferramenta/tecnologia de sua preferência, ressaltamos aqui:
+  - [Express Static](https://expressjs.com/pt-br/starter/static-files.html), uma ferramenta simples e prática, já integrada ao express para servir arquivos estáticos.
+  - Multer, uma ferramenta mais completa sobre a qual temos um conteúdo na parte de [Real Life Engineer](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/f04cdb21-382e-4588-8950-3b1a29afd2dd/section/2b8cf38c-5587-4e1d-9778-9083ed02d3f2/lesson/2300b1ee-d7d9-40f1-8d0d-67c4b3cd725b).
+
+</details>
+
+<details>
+  <summary>
+    <strong>🔄 Persistência no LocalStorage</strong>
+  </summary>
+  
+  - Para persistir informações como produtos no carrinho, foi utilizado o [context](https://reactjs.org/docs/context.html), onde foi criado um hook customizado para isolar a lógica de persistência do restante do seu código, como é sugerido [nesse artigo](https://jdudzik.medium.com/persistent-data-with-react-hooks-and-context-api-3f3f18ce947). Você pode encontrar diferentes sugestões e estratégias pesquisando por algo como: `react context persist`.
+  
+</details>
+
+<br>
+
+
+## O projeto foi desenvolvido em requisitos apresentados a seguir:
+
+<br>
+
+### `01 Desenvolvimento da tela de Login`
 
 Todos os testes desse arquivo:
 
@@ -26,12 +271,12 @@ Todos os testes desse arquivo:
 
 ---
 
-#### 1 - Crie uma tela de login que deve ser acessível pelos endpoints / e /login no navegador
+#### 1 - Cria uma tela de login que deve ser acessível pelos endpoints / e /login no navegador
 
 **Observações técnicas**
 
-- Aqui deve-se garantir que a aplicação possui acesso a uma rota `/login`;
-- A rota padrão (`/`) deve fazer redirecionamento para rota `/login`.
+- Garante que a aplicação possui acesso a uma rota `/login`;
+- Garante que a rota padrão (`/`) deve fazer redirecionamento para rota `/login`.
 
 <details>
   <summary>
@@ -39,8 +284,9 @@ Todos os testes desse arquivo:
   </summary>
 
 - O avaliador navegará para o endereço do host utilizando o endpoint `/`;
-  - O avaliador verificará o redirecionamento para página `/login`;
+- O avaliador verificará o redirecionamento para página `/login`;
 - O avaliador navegará para o endereço do host utilizando o endpoint `/login`.
+
 
 </details>
 
@@ -129,7 +375,7 @@ Sua página deve ser capaz de utilizar os dados do cliente previstos em `db.exam
 
 ---
 
-### `02register.test`
+### `02 Desenvolvimento da tela de Registro`
 
 Todos os testes desse arquivo:
 
@@ -248,7 +494,7 @@ O fluxo do cliente deve garantir que seja possível **navegar e escolher produto
 
 ---
 
-### `03customer_products.test`
+### `03 Desenvolvimento da tela de Produtos do Cliente`
 
 Todos os testes desse arquivo:
 
@@ -410,7 +656,7 @@ Todos os testes desse arquivo:
 
 ---
 
-### `04customer_checkout.test`
+### `04 Desenvolvimento da tela de Checkout do Cliente`
 
 Todos os testes desse arquivo:
 
@@ -536,7 +782,7 @@ Todos os testes desse arquivo:
 
 ---
 
-### `05customer_orders.test`
+### `05 Desenvolvimento da tela de Pedidos do Cliente`
 
 Todos os testes desse arquivo:
 
@@ -609,7 +855,7 @@ Todos os testes desse arquivo:
 
 ---
 
-### `06customer_order_details.test`
+### `06 Desenvolvimento da tela de Detalhes do Pedido do Cliente`
 
 Todos os testes desse arquivo:
 
@@ -661,7 +907,7 @@ O fluxo da pessoa vendedora deve garantir que é possível listar pedidos relaci
 
 ---
 
-### `07seller_orders.test`
+### `07 Desenvolvimento da tela de Pedidos do Vendedor`
 
 Todos os testes desse arquivo:
 
@@ -735,7 +981,7 @@ Todos os testes desse arquivo:
 
 ---
 
-### `08seller_order_details.test`
+### `08 Desenvolvimento da tela de Detalhes do Pedido do Vendedor`
 
 Todos os testes desse arquivo:
 
@@ -816,7 +1062,7 @@ A validação de status consiste em uma série de testes que devem assegurar que
 
 ---
 
-### `09customer_seller_status_sync.test`
+### `09 Desenvolvimento da funcionalidade de atualização de Status do Pedido`
 
 Todos os testes desse arquivo:
 
@@ -902,7 +1148,7 @@ O fluxo da pessoa administradora deve possibilitar o cadastro de clientes e pess
 
 ---
 
-### `10admin_manage_users.test`
+### `10 Desenvolvimento da tela de Admin`
 
 Todos os testes desse arquivo devem:
 
@@ -1049,7 +1295,7 @@ A cobertura de testes deve garantir que, tanto no `front-end` quanto no `back-en
 
 ---
 
-### `11coverage_tests.test`
+### `11 Desenvolvimento dos testes de cobertura`
 
 Antes de todos os testes, esse arquivo deve rodar, em ambas aplicações, o comando `test:coverage:json`.
 
