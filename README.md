@@ -27,7 +27,7 @@ Antes de começar a utilizar este projeto, certifique-se de que você tenha inst
 
 ## Como utilizar
 1. Faça um clone desse repositório
-  - Use o comando: `git clone git@github.com:matheusqueiroz/birita-express-app-delivery`.
+  - Use o comando: `git clone git@github.com:matheusqueiroz92/birita-express-app-delivery`.
 
 2. Entre na pasta do repositório que você acabou de clonar
   - Use o comando: `cd birita-express-delivery`.
